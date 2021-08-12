@@ -38,7 +38,7 @@ Router.post("/signup", async (req, res) => {
         const token = jwt.sign({ user: { fullname, email } }, "ZomatoMaster");
 
         // return
-        return res.status(200).json(token, status: "Success!");
+        return res.status(200).json({ token, status: "Success!" });
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
