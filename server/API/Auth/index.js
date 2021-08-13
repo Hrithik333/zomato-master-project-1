@@ -17,11 +17,28 @@ Router.post("/signup", async (req, res) => {
     try {
         await UserModel.findByEmailAndPhone(req.body.credentials);
 
-        // save to database
         const newUser = await UserModel.create(req.body.credentials);
 
-        // generate JWT auth token
         const token = newUser.generateJwtToken();
+
+        return res.status(200).json({ token, status: "Success!" });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+})
+
+/*
+Route           /signin
+Description     signin with email and password
+Access          PUBLIC
+Parameters      none
+Method          POST
+*/
+Router.post("/signin", async (req, res) => {
+    try {
+        const user = await UserModel.findByEmailAndPassword(req.body.credentials);
+
+        const token = user.generateJwtToken();
 
         return res.status(200).json({ token, status: "Success!" });
     } catch (error) {
