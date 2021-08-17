@@ -31,7 +31,7 @@ Access          PUBLIC
 Parameters      id
 Method          GET
 */
-Router.get("/:id", async (req, res) => {
+Router.get("/:_id", async (req, res) => {
     try {
         const { _id } = req.params;
         const restaurant = await RestaurantModel.findOne({ _id });
