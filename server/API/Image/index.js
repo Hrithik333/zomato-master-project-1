@@ -20,7 +20,7 @@ Route           /image
 Description     Uploads given image to S3 bucket, and saves file link to mongodb
 Access          PUBLIC
 Parameters      none
-Method          GET
+Method          POST
 */
 Router.post("/", upload.single("file"), async (req, res) => {
     try {
