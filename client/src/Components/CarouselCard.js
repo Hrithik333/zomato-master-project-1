@@ -4,7 +4,7 @@ import { RiArrowRightSFill } from "react-icons/ri";
 const CarouselCard = () => {
     return (
         <>
-            <div className="w-full h-64 relative px-4 overflow-hidden">
+            <div className="w-full h-64 relative px-2 md:px-4 overflow-hidden">
                 <div className="w-full h-full relative">
                     <img
                         src="https://b.zmtcdn.com/data/reviews_photos/fb7/d80f664aca19610773b1c81318d98fb7_1576140980.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*"
