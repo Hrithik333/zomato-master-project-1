@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Slider from "react-slick";
+import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 // components
 import DeliveryCategory from './DeliveryCategory';
@@ -7,6 +8,9 @@ import { NextArrow, PrevArrow } from '../CarouselArrows';
 
 
 const DeliveryCarousel = () => {
+    const [limit, setLimit] = useState(6);
+    const [showMore, setShowMore] = useState(false);
+
     const categories = [
         {
             image: "https://b.zmtcdn.com/data/dish_images/c598d69f4864f3cba4b0de2d8efc0e521612436494.png",
@@ -68,11 +72,24 @@ const DeliveryCarousel = () => {
         prevArrow: <PrevArrow />
     };
 
+    const showMoreCategories = () => {
+        setLimit(12);
+        setShowMore(true);
+    }
+    const showLessCategories = () => {
+        setLimit(6);
+        setShowMore(false);
+    }
+
     return (
         <>
-            <h1 className="text-xl font-semibold mb-4 lg:text-3xl lg:mb-8">Inspiration for your first order</h1>
+            <h1 className="text-xl font-semibold mb-6 md:text-3xl lg:mb-8">Inspiration for your first order</h1>
             <div className="lg:hidden flex flex-wrap justify-between gap-3">
-                {categories.map((food) => <DeliveryCategory {...food} />)}
+                {categories.slice(0, limit).map((food) => <DeliveryCategory {...food} />)}
+            </div>
+            <div className="lg:hidden justify-center my-4 py-1 border rounded-md text-sm flex gap-2 items-center" onClick={!showMore ? showMoreCategories : showLessCategories}>
+                <p>{showMore ? "Show Less" : "Show More"}</p>
+                <span>{showMore ? <BiChevronUp /> : <BiChevronDown />}</span>
             </div>
 
             <div className="hidden lg:block">

@@ -51,11 +51,11 @@ const Delivery = () => {
     return (
         <>
             <DeliveryCarousel />
+            <h1 className="px-4 text-xl font-medium mt-6 md:text-3xl md:mt-8 md:mb-4">Delivery Restaurants in Jodhpur</h1>
             <div className="flex flex-wrap justify-between">
                 {restaurantList.map((restaurant) => (
                     <RestaurantCard {...restaurant} key={restaurant._id} />
                 ))}
-
             </div>
         </>
     )
