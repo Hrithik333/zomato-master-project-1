@@ -2,7 +2,7 @@ import React from "react";
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 import ReactStars from "react-rating-stars-component";
 
-const NutritionCard = (props) => {
+const NutritionMainCard = (props) => {
     return (
         <div className=" w-full p-4 md:w-1/2 lg:w-1/3">
             <div className="w-full h-full bg-white rounded-2xl shadow-lg ">
@@ -55,4 +55,4 @@ const NutritionCard = (props) => {
     );
 };
 
-export default NutritionCard;
+export default NutritionMainCard;

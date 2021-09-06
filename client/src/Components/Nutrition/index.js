@@ -12,6 +12,7 @@ const Nutrition = () => {
             <div className="my-8">
                 <NutritionCarousel />
             </div>
+            <h1 className="text-xl px-6 font-semibold">All Products</h1>
             <div className="flex flex-wrap justify-between">
                 <NutritionMainCard
                     bg="red"
