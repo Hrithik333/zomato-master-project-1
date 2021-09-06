@@ -24,6 +24,7 @@ const NutritionMainCard = (props) => {
                             size={16}
                             isHalf={true}
                             value={3}
+                            edit={false}
                             emptyIcon={<BsStar />}
                             halfIcon={<BsStarHalf />}
                             fullIcon={<BsStarFill />}
