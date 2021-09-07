@@ -1,8 +1,12 @@
 import React from 'react';
+import { TiStarOutline } from 'react-icons/ti';
+import { RiDirectionLine, RiShareForwardLine } from "react-icons/ri";
+import { BiBookmarkPlus } from "react-icons/bi";
 
 // components
 import RestaurantNavbar from '../Components/Navbar/RestaurantNavbar';
 import ImageGrid from '../Components/Restaurant/ImageGrid';
+import InfoButtons from '../Components/Restaurant/InfoButtons';
 import RestaurantInfo from '../Components/Restaurant/RestaurantInfo';
 
 const RestaurantLayout = () => {
@@ -24,6 +28,20 @@ const RestaurantLayout = () => {
                     cuisine="Pizza, Fast Food, Beverages"
                     address="Sardarpura, Jodhpur"
                 />
+                <div className="my-4 flex flex-wrap gap-4">
+                    <InfoButtons isActive>
+                        <TiStarOutline className="text-lg" /> Add Review
+                    </InfoButtons>
+                    <InfoButtons>
+                        <RiDirectionLine className="text-zomato-400 text-lg" /> Direction
+                    </InfoButtons>
+                    <InfoButtons>
+                        <BiBookmarkPlus className="text-zomato-400 text-lg" /> Bookmark
+                    </InfoButtons>
+                    <InfoButtons>
+                        <RiShareForwardLine className="text-zomato-400 text-lg" /> Share
+                    </InfoButtons>
+                </div>
             </div>
         </>
     )
