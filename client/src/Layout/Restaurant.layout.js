@@ -8,8 +8,9 @@ import RestaurantNavbar from '../Components/Navbar/RestaurantNavbar';
 import ImageGrid from '../Components/Restaurant/ImageGrid';
 import InfoButtons from '../Components/Restaurant/InfoButtons';
 import RestaurantInfo from '../Components/Restaurant/RestaurantInfo';
+import TabContainer from '../Components/Restaurant/Tabs';
 
-const RestaurantLayout = () => {
+const RestaurantLayout = (props) => {
     return (
         <>
             <RestaurantNavbar />
@@ -42,6 +43,10 @@ const RestaurantLayout = () => {
                         <RiShareForwardLine className="text-zomato-400 text-lg" /> Share
                     </InfoButtons>
                 </div>
+                <div className="my-10">
+                    <TabContainer />
+                </div>
+                {props.children}
             </div>
         </>
     )
