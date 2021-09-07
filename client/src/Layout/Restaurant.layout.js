@@ -8,7 +8,7 @@ const RestaurantLayout = () => {
     return (
         <>
             <RestaurantNavbar />
-            <div className="container mx-auto px-4 lg:px-20">
+            <div className="container mx-auto px-4 lg:px-20 md:my-4">
                 <ImageGrid images={[
                     "https://b.zmtcdn.com/data/reviews_photos/985/2265ea26bf223db5e976075635ab8985_1622643290.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*",
                     "https://b.zmtcdn.com/data/reviews_photos/197/18ecba14c5461d7df41c195660304197_1624805739.jpg?output-format=webp&fit=around|300:273&crop=300:273;*,*",
