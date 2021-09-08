@@ -1,15 +1,15 @@
 import React from 'react'
 import Slider from 'react-slick';
 import { Link, useParams } from 'react-router-dom'
-import { IoMdArrowDropright } from 'react-icons/io'
+import { IoMdArrowDropright } from 'react-icons/io';
 import ReactStars from 'react-rating-stars-component';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 
 // components
 import MenuCollection from '../../Components/Restaurant/MenuCollection';
 import OverviewSimilarRestaurantcard from '../../Components/Restaurant/OverviewSimilarRedtaurantCard';
 import { NextArrow, PrevArrow } from '../../Components/CarouselArrows';
 import ReviewCard from '../../Components/Restaurant/Reviews/ReviewCard';
+import MapView from '../../Components/Restaurant/MapView';
 
 const Overview = () => {
     const { id } = useParams();
@@ -54,7 +54,7 @@ const Overview = () => {
 
     return (
         <>
-            <div className="relative flex flex-col md:gap-4 md:flex-row">
+            <div className="relative flex flex-col md:gap-8 md:flex-row">
                 <div className="w-full md:w-3/5">
                     <h2 className="font-semibold text-lg md:text-2xl my-4">
                         About this place
@@ -106,6 +106,13 @@ const Overview = () => {
                             activeColor="#ffd700"
                         />
                     </div>
+                    <div className="my-4 md:hidden w-full flex flex-col gap-4">
+                        <MapView
+                            title="La Pino'z Pizza"
+                            phone="+912913550473"
+                            mapLocation={[26.27596515304485, 73.00643555136229]} address="Plot 582A/A1, 9th C Road, Sardarpura, Jodhpur"
+                        />
+                    </div>
                     <h4 className="text-xl mt-6 mb-4">Review Highlights</h4>
                     <div className="flex flex-col gap-4">
                         <ReviewCard />
@@ -113,27 +120,12 @@ const Overview = () => {
                         <ReviewCard />
                     </div>
                 </div>
-                <aside style={{ height: "fit-content" }} className=" hidden bg-white p-3 shadow-md rounded-xl md:block md:w-2/5 sticky top-2">
-                    <div>
-                        <h4 className="text-xl">Call</h4>
-                        <h5 className="text-zomato-400 font-medium">+912913550473</h5>
-                    </div>
-                    <div>
-                        <h4 className="text-xl">Direction</h4>
-                        <div className="w-full h-48">
-                            <MapContainer center={[26.27596515304485, 73.00643555136229]} zoom={13} scrollWheelZoom={false}>
-                                <TileLayer
-                                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                />
-                                <Marker position={[26.27596515304485, 73.00643555136229]}>
-                                    <Popup>
-                                        La Pino'z Pizza
-                                    </Popup>
-                                </Marker>
-                            </MapContainer>
-                        </div>
-                    </div>
+                <aside style={{ height: "fit-content" }} className=" hidden bg-white p-4 shadow-md rounded-xl md:flex md:w-2/5 sticky top-2 flex-col gap-4">
+                    <MapView
+                        title="La Pino'z Pizza"
+                        phone="+912913550473"
+                        mapLocation={[26.27596515304485, 73.00643555136229]} address="Plot 582A/A1, 9th C Road, Sardarpura, Jodhpur"
+                    />
                 </aside>
             </div>
         </>
