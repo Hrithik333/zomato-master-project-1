@@ -4,7 +4,6 @@ import { BiTime } from 'react-icons/bi';
 
 // components
 import FloatingMenuButton from '../../Components/Restaurant/OrderOnline/FloatingMenuButton';
-import FoodItemCard from '../../Components/Restaurant/OrderOnline/FoodItemCard';
 import FoodList from '../../Components/Restaurant/OrderOnline/FoodList';
 import MenuListContainer from '../../Components/Restaurant/OrderOnline/MenuListContainer';
 
@@ -36,75 +35,8 @@ const OrderOnline = () => {
                                     rating: 3,
                                     description: "Say cheese"
                                 },
-                                {
-                                    image: "https://b.zmtcdn.com/data/dish_photos/5cb/97b3ae9bc4d000d22a42a6a41ea795cb.jpg?output-format=webp&fit=around|130:130&crop=130:130;*,*",
-                                    title: "Margherita Pizza",
-                                    price: "110",
-                                    rating: 3,
-                                    description: "Say cheese"
-                                },
-                                {
-                                    image: "https://b.zmtcdn.com/data/dish_photos/5cb/97b3ae9bc4d000d22a42a6a41ea795cb.jpg?output-format=webp&fit=around|130:130&crop=130:130;*,*",
-                                    title: "Margherita Pizza",
-                                    price: "110",
-                                    rating: 3,
-                                    description: "Say cheese"
-                                },
                             ]}
                         />
-                        <FoodList
-                            title="Pizzas"
-                            items={[
-                                {
-                                    image: "https://b.zmtcdn.com/data/dish_photos/5cb/97b3ae9bc4d000d22a42a6a41ea795cb.jpg?output-format=webp&fit=around|130:130&crop=130:130;*,*",
-                                    title: "Margherita Pizza",
-                                    price: "110",
-                                    rating: 3,
-                                    description: "Say cheese"
-                                },
-                                {
-                                    image: "https://b.zmtcdn.com/data/dish_photos/5cb/97b3ae9bc4d000d22a42a6a41ea795cb.jpg?output-format=webp&fit=around|130:130&crop=130:130;*,*",
-                                    title: "Margherita Pizza",
-                                    price: "110",
-                                    rating: 3,
-                                    description: "Say cheese"
-                                },
-                                {
-                                    image: "https://b.zmtcdn.com/data/dish_photos/5cb/97b3ae9bc4d000d22a42a6a41ea795cb.jpg?output-format=webp&fit=around|130:130&crop=130:130;*,*",
-                                    title: "Margherita Pizza",
-                                    price: "110",
-                                    rating: 3,
-                                    description: "Say cheese"
-                                },
-                            ]}
-                        />
-                        <FoodList
-                            title="Beverages"
-                            items={[
-                                {
-                                    image: "https://b.zmtcdn.com/data/dish_photos/5cb/97b3ae9bc4d000d22a42a6a41ea795cb.jpg?output-format=webp&fit=around|130:130&crop=130:130;*,*",
-                                    title: "Margherita Pizza",
-                                    price: "110",
-                                    rating: 3,
-                                    description: "Say cheese"
-                                },
-                                {
-                                    image: "https://b.zmtcdn.com/data/dish_photos/5cb/97b3ae9bc4d000d22a42a6a41ea795cb.jpg?output-format=webp&fit=around|130:130&crop=130:130;*,*",
-                                    title: "Margherita Pizza",
-                                    price: "110",
-                                    rating: 3,
-                                    description: "Say cheese"
-                                },
-                                {
-                                    image: "https://b.zmtcdn.com/data/dish_photos/5cb/97b3ae9bc4d000d22a42a6a41ea795cb.jpg?output-format=webp&fit=around|130:130&crop=130:130;*,*",
-                                    title: "Margherita Pizza",
-                                    price: "110",
-                                    rating: 3,
-                                    description: "Say cheese"
-                                },
-                            ]}
-                        />
-
                     </section>
 
                 </div>
