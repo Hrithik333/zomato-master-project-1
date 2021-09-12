@@ -1,5 +1,4 @@
 import express from "express";
-import passport from "passport";
 import multer from "multer";
 
 // Database Model
@@ -14,6 +13,23 @@ const Router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
+
+/*
+Route           /image
+Description     get image details
+Access          PUBLIC
+Parameters      _id
+Method          GET
+*/
+Router.get("/:_id", async (req, res) => {
+    try {
+        const image = await ImageModel.findById(req.params._id);
+
+        return res.json({ image });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+})
 
 /*
 Route           /image

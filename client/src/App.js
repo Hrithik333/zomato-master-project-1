@@ -5,9 +5,6 @@ import HomeLayoutHOC from "./HOC/Home.HOC";
 import RestaurantLayoutHOC from "./HOC/Restaurant.HOC";
 import CheckoutLayoutHOC from "./HOC/Checkout.HOC";
 
-// components
-import Temp from "./Components/Temp";
-
 // Pages
 import Home from "./Page/Home";
 import Overview from "./Page/Restaurant/Overview";
