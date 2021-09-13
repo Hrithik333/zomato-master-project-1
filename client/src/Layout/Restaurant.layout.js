@@ -37,7 +37,6 @@ const RestaurantLayout = (props) => {
 
             dispatch(getImage(data.payload.restaurant.photos)).then((data) => {
                 setRestaurant((prev) => ({ ...prev, ...data.payload.image }))
-                console.log(data.payload.image)
             }
             );
         });
@@ -46,7 +45,7 @@ const RestaurantLayout = (props) => {
     return (
         <>
             <RestaurantNavbar />
-            <div className="container mx-auto mb-20 px-4 lg:px-20 md:my-4">
+            <div className="container mx-auto mb-20 px-4 lg:px-20 md:my-4 md:mb-20">
                 <ImageGrid images={restaurant.images} />
                 <RestaurantInfo
                     name={restaurant?.name}

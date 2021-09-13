@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Slider from 'react-slick';
 import { Link, useParams } from 'react-router-dom'
 import { IoMdArrowDropright } from 'react-icons/io';
 import ReactStars from 'react-rating-stars-component';
+import { useSelector, useDispatch } from "react-redux";
 
 // components
 import MenuCollection from '../../Components/Restaurant/MenuCollection';
@@ -11,7 +12,11 @@ import { NextArrow, PrevArrow } from '../../Components/CarouselArrows';
 import ReviewCard from '../../Components/Restaurant/Reviews/ReviewCard';
 import MapView from '../../Components/Restaurant/MapView';
 
+// Redux actions
+import { getImage } from '../../Redux/Reducers/Image/image.action';
+
 const Overview = () => {
+    const [menuImage, setMenuImages] = useState({ images: [] });
     const { id } = useParams();
     const settings = {
         arrows: true,
@@ -48,6 +53,22 @@ const Overview = () => {
         ]
     };
 
+    const reduxState = useSelector(
+        (globalStore) => globalStore.restaurant.selectedRestaurant.restaurant
+    );
+    console.log(reduxState);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (reduxState) {
+            dispatch(getImage(reduxState?.menuImages)).then((data) => {
+                const images = [];
+                data.payload.image.images.map(({ location }) => images.push(location));
+                setMenuImages(images);
+            });
+        }
+    }, [reduxState, dispatch]);
+
     const ratingChanged = (newRating) => {
         console.log(newRating);
     };
@@ -68,26 +89,19 @@ const Overview = () => {
                         </Link>
                     </div>
                     <div className="flex flex-wrap gap-3 cursor-pointer">
-                        <MenuCollection menuTitle="Menu" pages="1" image={[
-                            "https://b.zmtcdn.com/data/menus/897/19722897/a61066474f03880a25f7853e573053cd.png?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A",
-                            'http://placeimg.com/1500/500/nature',
-                        ]} />
+                        <MenuCollection menuTitle="Menu" pages={menuImage.length} image={menuImage} />
                     </div>
                     <h4 className="text-xl mt-6 mb-2">Cuisines</h4>
                     <div className="flex flex-wrap gap-2">
-                        <span className="border border-gray-500 text-blue-400 px-2 py-1 rounded-full">
-                            Pizza
-                        </span>
-                        <span className="border border-gray-500 text-blue-400 px-2 py-1 rounded-full">
-                            Fast Food
-                        </span>
-                        <span className="border border-gray-500 text-blue-400 px-2 py-1 rounded-full">
-                            Beverages
-                        </span>
+                        {reduxState?.cuisine.map((item) => (
+                            <span className="border border-gray-500 text-blue-400 px-2 py-1 rounded-full">
+                                {item}
+                            </span>
+                        ))}
                     </div>
                     <h4 className="text-xl mt-6 mb-2">Average Cost</h4>
                     <div>
-                        <h6 className="text-gray-500">₹800 for two people (approx.)</h6>
+                        <h6 className="text-gray-500">₹{reduxState?.averageCost} for two people (approx.)</h6>
                         <p className="text-gray-400 text-sm">Exclusive of applicable taxes and charges, if any</p>
                     </div>
                     <div>

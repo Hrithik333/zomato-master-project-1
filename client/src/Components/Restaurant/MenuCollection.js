@@ -14,7 +14,7 @@ const MenuCollection = (props) => {
                 <ImageViewer
                     src={props.image}
                     currentIndex={currentImg}
-                    disableScroll={false}
+                    disableScroll={true}
                     closeOnClickOutside={true}
                     onClose={closeViewer}
                 />

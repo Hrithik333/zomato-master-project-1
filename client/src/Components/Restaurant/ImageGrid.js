@@ -1,7 +1,9 @@
 import React from 'react';
 import { AiOutlineCamera } from 'react-icons/ai';
+import { Link, useParams } from 'react-router-dom';
 
 const ImageGrid = (props) => {
+    const { id } = useParams()
     return (
         <>
             <div className="w-full h-60 md:hidden">
@@ -36,15 +38,17 @@ const ImageGrid = (props) => {
                     </div>
                 </div>
                 <div className="w-1/4 h-full flex flex-col gap-1 overflow-hidden">
-                    <div className="w-full h-full relative">
-                        <img
-                            src={props.images.length && props.images[3].location}
-                            alt="restaurant"
-                            className="w-full h-full object-cover rounded-lg"
-                        />
-                        <div className="absolute inset-0 bg-opacity-40 bg-black w-full h-full rounded-lg"></div>
-                        <h4 className="absolute inset-y-1/2 z-20 w-full h-full text-center text-white font-semibold cursor-pointer">View Gallery</h4>
-                    </div>
+                    <Link to={`/restaurant/${id}/photos`} className="w-full" >
+                        <div className="w-full h-full relative">
+                            <img
+                                src={props.images.length && props.images[3].location}
+                                alt="restaurant"
+                                className="w-full h-full object-cover rounded-lg"
+                            />
+                            <div className="absolute inset-0 bg-opacity-40 bg-black w-full h-full rounded-lg"></div>
+                            <h4 className="absolute inset-y-1/2 z-20 w-full h-full text-center text-white font-semibold cursor-pointer">View Gallery</h4>
+                        </div>
+                    </Link>
                     <div className="w-full h-full relative">
                         <img
                             src={props.images.length && props.images[4].location}
