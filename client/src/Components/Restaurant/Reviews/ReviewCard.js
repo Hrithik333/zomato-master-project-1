@@ -1,20 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { TiStarFullOutline } from 'react-icons/ti'
-import { useDispatch } from 'react-redux';
-import dayjs from "dayjs";
 
-// Redux actions
-import { getUser } from '../../../Redux/Reducers/User/user.action';
-
-const ReviewCard = (props) => {
-    const [user, setUser] = useState({});
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        // dispatch(getUser()).then((data) => setUser(data.payload.user.user.user))
-        dispatch(getUser()).then((data) => console.log(data))
-    }, [])
-
+const ReviewCard = () => {
     return (
         <>
             <div className="flex flex-col gap-3 my-3">
@@ -26,7 +13,7 @@ const ReviewCard = (props) => {
                             />
                         </div>
                         <div className="flex flex-col">
-                            <h3 className="text-lg">{user?.fullname}</h3>
+                            <h3 className="text-lg">Manali Mathur</h3>
                             <small className=" text-gray-500">5 Reviews &bull; 3 Followers</small>
                         </div>
                     </div>
@@ -38,16 +25,12 @@ const ReviewCard = (props) => {
                             3
                             <TiStarFullOutline />
                         </span>
-                        <h5 className="text-regular uppercase">
-                            {props.isRestaurantReview ? "Dining" : "Delivery"}
-                        </h5>
-                        <h5 className="text-gray-500">
-                            {dayjs(props.createdAt).format("DD MMM YYYY")}
-                        </h5>
+                        <h5 className="text-regular uppercase">Delivery</h5>
+                        <h5 className="text-gray-500">3 days ago</h5>
                     </div>
                     <div className="w-full">
                         <p className="w-full text-base text-gray-700 font-light">
-                            {props.reviewText}
+                            The size of Pizza was very very small and it was very spicy,3/10 rating of Pizza. The garlic bread was worth it, keep improving,9/10 rating of garlic bread.
                         </p>
                     </div>
                 </div>

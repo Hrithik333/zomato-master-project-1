@@ -1,33 +1,16 @@
 import axios from "axios";
 
 // Redux types
-import { GET_REVIEW, POST_REVIEW } from "./review.type";
+import { GET_RESTAURANT } from "./restaurant.type";
 
-
-export const getReviews = (resId) => async (dispatch) => {
+export const getRestaurant = () => async (dispatch) => {
     try {
-        const reviewList = await axios({
+        const restaurantList = await axios({
             method: "GET",
-            url: `http://localhost:4000/reviews/${resId}`,
+            url: "http://localhost:4000/restaurant/?city=Bangalore",
         });
 
-        return dispatch({ type: GET_REVIEW, payload: reviewList.data });
-    } catch (error) {
-        return dispatch({ type: "ERROR", payload: error });
-    }
-};
-
-export const postReview = (reviewData) => async (dispatch) => {
-    try {
-        await axios({
-            method: "POST",
-            url: `http://localhost:4000/reviews/new`,
-        });
-
-        return dispatch({
-            type: POST_REVIEW,
-            payload: reviewData,
-        });
+        return dispatch({ type: GET_RESTAURANT, payload: restaurantList.data });
     } catch (error) {
         return dispatch({ type: "ERROR", payload: error });
     }

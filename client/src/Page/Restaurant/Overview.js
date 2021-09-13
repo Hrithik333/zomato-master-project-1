@@ -14,12 +14,9 @@ import MapView from '../../Components/Restaurant/MapView';
 
 // Redux actions
 import { getImage } from '../../Redux/Reducers/Image/image.action';
-import { getReviews } from '../../Redux/Reducers/Reviews/review.action';
 
 const Overview = () => {
     const [menuImage, setMenuImages] = useState({ images: [] });
-    const [reviews, setReviews] = useState([]);
-
     const { id } = useParams();
     const settings = {
         arrows: true,
@@ -68,8 +65,6 @@ const Overview = () => {
                 data.payload.image.images.map(({ location }) => images.push(location));
                 setMenuImages(images);
             });
-
-            dispatch(getReviews(reduxState._id)).then((data) => setReviews(data.payload.reviews))
         }
     }, [reduxState, dispatch]);
 
@@ -141,9 +136,9 @@ const Overview = () => {
                     </div>
                     <h4 className="text-xl mt-6 mb-4">Review Highlights</h4>
                     <div className="flex flex-col gap-4">
-                        {reviews.map((reviewData) => (
-                            <ReviewCard {...reviewData} />
-                        ))}
+                        <ReviewCard />
+                        <ReviewCard />
+                        <ReviewCard />
                     </div>
                 </div>
                 <aside style={{ height: "fit-content" }} className=" hidden bg-white p-4 shadow-md rounded-xl md:flex md:w-2/5 sticky top-2 flex-col gap-4">
