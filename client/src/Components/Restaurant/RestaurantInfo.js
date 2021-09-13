@@ -31,10 +31,10 @@ const RestaurantInfo = (props) => {
                     </div>
                 </div>
                 <div className="text-base md:text-lg text-gray-600">
-                    <h3>{props.cuisine}</h3>
+                    <h3>{props.cuisine.join(", ")}</h3>
                     <h3 className="text-gray-400">{props.address}</h3>
                     <h3>
-                        <span className="text-yellow-500">Open now</span> - 11 am - 8 pm
+                        <span className="text-yellow-500">Open now</span> - {props.restaurantTimings}
                     </h3>
                 </div>
             </div>
