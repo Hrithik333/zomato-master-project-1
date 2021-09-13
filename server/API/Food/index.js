@@ -10,6 +10,26 @@ import { ValidateRestaurantID } from "../../validation/food";
 const Router = express.Router();
 
 /*
+Route           /
+Description     Get food based on id
+Access          PUBLIC
+Parameters      _id
+Method          GET
+*/
+Router.get("/:_id", async (req, res) => {
+
+    try {
+        const { _id } = req.params;
+        const food = await FoodModel.findById(_id);
+
+        return res.json({ food });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+})
+
+
+/*
 Route           /r
 Description     Get all foods based on particular restaurant
 Access          PUBLIC
