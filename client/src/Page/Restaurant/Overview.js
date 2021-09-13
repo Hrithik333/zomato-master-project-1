@@ -56,7 +56,6 @@ const Overview = () => {
     const reduxState = useSelector(
         (globalStore) => globalStore.restaurant.selectedRestaurant.restaurant
     );
-    console.log(reduxState);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -71,6 +70,10 @@ const Overview = () => {
 
     const ratingChanged = (newRating) => {
         console.log(newRating);
+    };
+
+    const getLatLong = (mapAddress) => {
+        return (mapAddress?.split(",").map((item) => parseFloat(item)));
     };
 
     return (
@@ -125,9 +128,10 @@ const Overview = () => {
                     </div>
                     <div className="my-4 md:hidden w-full flex flex-col gap-4">
                         <MapView
-                            title="La Pino'z Pizza"
-                            phone="+912913550473"
-                            mapLocation={[26.27596515304485, 73.00643555136229]} address="Plot 582A/A1, 9th C Road, Sardarpura, Jodhpur"
+                            title={reduxState?.name}
+                            phone={`+91${reduxState?.contactNumber}`}
+                            mapLocation={getLatLong(reduxState?.mapLocation)}
+                            address={reduxState?.address}
                         />
                     </div>
                     <h4 className="text-xl mt-6 mb-4">Review Highlights</h4>
@@ -139,9 +143,10 @@ const Overview = () => {
                 </div>
                 <aside style={{ height: "fit-content" }} className=" hidden bg-white p-4 shadow-md rounded-xl md:flex md:w-2/5 sticky top-2 flex-col gap-4">
                     <MapView
-                        title="La Pino'z Pizza"
-                        phone="+912913550473"
-                        mapLocation={[26.27596515304485, 73.00643555136229]} address="Plot 582A/A1, 9th C Road, Sardarpura, Jodhpur"
+                        title={reduxState?.name}
+                        phone={`+91${reduxState?.contactNumber}`}
+                        mapLocation={getLatLong(reduxState?.mapLocation)}
+                        address={reduxState?.address}
                     />
                 </aside>
             </div>
