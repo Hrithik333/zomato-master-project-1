@@ -1,11 +1,61 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import ReactStars from 'react-rating-stars-component'
+import { useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
-export default function ReviewModal({ isOpen, setIsOpen, handleRating, ...props }) {
+// redux actions
+import { postReview } from '../../../Redux/Reducers/Reviews/review.action'
+
+export default function ReviewModal({ isOpen, setIsOpen, ...props }) {
+    const [reviewData, setReviewData] = useState({
+        reviewText: "",
+        isRestaurantReview: false,
+        isFoodReview: false,
+        rating: 0
+    })
+
+    const { id } = useParams();
+    const dispatch = useDispatch();
+
+    const handleChange = (e) => setReviewData(prev => ({ ...prev, [e.target.id]: e.target.value }))
+
+    const handleRating = (rating) => setReviewData((prev) => ({ ...prev, rating }));
+
     function closeModal() {
         setIsOpen(false)
     }
+
+    const toggleDining = () => {
+        setReviewData((prev) => ({
+            ...prev,
+            isFoodReview: false,
+            isRestaurantReview: !reviewData.isRestaurantReview
+        }))
+    }
+    const toggleDelivery = () => {
+        setReviewData((prev) => ({
+            ...prev,
+            isRestaurantReview: false,
+            isFoodReview: !reviewData.isFoodReview
+        }))
+    }
+
+    const submit = () => {
+        dispatch(
+            postReview({
+                ...reviewData,
+                restaurant: id,
+            })
+        );
+        setReviewData({
+            reviewText: "",
+            isRestaurantReview: false,
+            isFoodReview: false,
+            rating: 0,
+        });
+        closeModal();
+    };
 
     return (
         <>
@@ -54,30 +104,35 @@ export default function ReviewModal({ isOpen, setIsOpen, handleRating, ...props 
                                 <div className="mt-2 flex flex-col gap-3">
                                     <div className="flex items-center gap-5">
                                         <div className="flex items-center gap-2">
-                                            <input type="radio" name="review" id="dining" />
+                                            <input
+                                                type="radio"
+                                                name="review"
+                                                id="dining"
+                                                onChange={toggleDining}
+                                                checked={reviewData.isRestaurantReview}
+                                            />
                                             <label htmlFor="dining">Dining</label>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <input type="radio" name="review" id="delivery" />
+                                            <input
+                                                type="radio"
+                                                name="review"
+                                                id="delivery"
+                                                onChange={toggleDelivery}
+                                                checked={reviewData.isFoodReview}
+                                            />
                                             <label htmlFor="delivery">Delivery</label>
                                         </div>
                                     </div>
-                                    <ReactStars count={5} size={24} onChange={handleRating} />
+                                    <ReactStars count={5} size={24} value={reviewData.rating} onChange={handleRating} />
 
                                     <form className="flex flex-col gap-4">
-                                        <div className=" w-full flex flex-col gap-2">
-                                            <label htmlFor="subject">Subject</label>
-                                            <input
-                                                type="text"
-                                                id="subject"
-                                                placeholder="amazing food"
-                                                className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-zomato-400"
-                                            />
-                                        </div>
                                         <div className="flex flex-col gap-2">
                                             <label htmlFor="reviewText">Review Text</label>
                                             <textarea
                                                 id="reviewText"
+                                                onChange={handleChange}
+                                                value={reviewData.reviewText}
                                                 placeholder="amazing food"
                                                 rows="5"
                                                 className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-zomato-400"
@@ -90,7 +145,7 @@ export default function ReviewModal({ isOpen, setIsOpen, handleRating, ...props 
                                     <button
                                         type="button"
                                         className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                                        onClick={closeModal}
+                                        onClick={submit}
                                     >
                                         Submit
                                     </button>

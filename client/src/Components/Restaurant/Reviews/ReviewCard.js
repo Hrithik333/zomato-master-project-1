@@ -7,13 +7,12 @@ import dayjs from "dayjs";
 import { getUser } from '../../../Redux/Reducers/User/user.action';
 
 const ReviewCard = (props) => {
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState("");
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // dispatch(getUser()).then((data) => setUser(data.payload.user.user.user))
-        dispatch(getUser()).then((data) => console.log(data))
-    }, [])
+        dispatch(getUser(props?.user)).then((data) => setUser(data.payload.user?.fullname))
+    }, [dispatch, props?.user])
 
     return (
         <>
@@ -26,7 +25,7 @@ const ReviewCard = (props) => {
                             />
                         </div>
                         <div className="flex flex-col">
-                            <h3 className="text-lg">{user?.fullname}</h3>
+                            <h3 className="text-lg">{user}</h3>
                             <small className=" text-gray-500">5 Reviews &bull; 3 Followers</small>
                         </div>
                     </div>
@@ -35,7 +34,7 @@ const ReviewCard = (props) => {
                 <div className="flex flex-col gap-3">
                     <div className="flex items-center gap-3">
                         <span className="flex items-center gap-1 text-white bg-green-600 font-semibold py-1 px-2 text-xs rounded-lg">
-                            3
+                            {props.rating}
                             <TiStarFullOutline />
                         </span>
                         <h5 className="text-regular uppercase">

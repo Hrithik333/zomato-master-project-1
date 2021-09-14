@@ -1,4 +1,5 @@
 import { Route, Redirect } from "react-router-dom";
+import axios from "axios";
 
 // HOC
 import HomeLayoutHOC from "./HOC/Home.HOC";
@@ -15,7 +16,11 @@ import Photos from "./Page/Restaurant/Photos";
 import Checkout from "./Page/Checkout";
 import RedirectRestaurant from "./Page/Restaurant/Redirect";
 
-
+// axios global settings
+if (localStorage.zomatoUser) {
+  const { token } = JSON.parse(localStorage.zomatoUser);
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+}
 function App() {
   return (
     <>

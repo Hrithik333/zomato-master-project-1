@@ -43,7 +43,7 @@ const MobileNav = ({ SignIn, SignUp }) => {
     )
 }
 
-const LargeNav = () => {
+const LargeNav = ({ SignIn, SignUp }) => {
     return (
         <div className="container mx-auto px-20">
             <div className="w-full flex items-center py-4 gap-4 ">
@@ -68,8 +68,8 @@ const LargeNav = () => {
                     </div>
                 </div>
                 <div className="flex gap-4 lg:gap-8 lg:pl-20">
-                    <button className="text-gray-500 text-xl hover:text-gray-800">Login</button>
-                    <button className="text-gray-500 text-xl hover:text-gray-800">Signup</button>
+                    <button onClick={SignIn} className="text-gray-500 text-xl hover:text-gray-800">Login</button>
+                    <button onClick={SignUp} className="text-gray-500 text-xl hover:text-gray-800">Signup</button>
                 </div>
             </div>
         </div>
@@ -92,7 +92,7 @@ const Navbar = () => {
                     <MobileNav SignIn={openSignInModal} SignUp={openSignUpModal} />
                 </div>
                 <div className="hidden lg:block">
-                    <LargeNav />
+                    <LargeNav SignIn={openSignInModal} SignUp={openSignUpModal} />
                 </div>
             </nav>
         </>
