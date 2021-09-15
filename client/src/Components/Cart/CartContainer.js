@@ -59,7 +59,6 @@ const CartLg = ({ toggle }) => {
 
 const CartContainer = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [cartData, setCartData] = useState([]);
 
     const reduxState = useSelector((global) => global.cart.cart);
 
@@ -68,30 +67,28 @@ const CartContainer = () => {
 
     return (
         <>
-            {isOpen && (
-                <div className="fixed overflow-y-scroll h-48 w-full bg-white z-30 p-2 bottom-14 px-3 md:px-20 ">
-                    <div className="flex items-center justify-between text-xl font-semibold">
-                        <h3>Your Orders</h3>
-                        <IoCloseSharp className="cursor-pointer" onClick={closeCart} />
-                    </div>
-                    <hr className="my-2" />
-
-                    <div className="flex flex-col gap-2">
-                        {reduxState.map((food) => (
-                            <FoodItem
-                                name={food.name}
-                                quantity={food.quantity}
-                                price={food.price}
-                            />
-                        ))}
-                    </div>
-                </div>
-            )}
             {reduxState.length && (
-                <div className="fixed w-full bg-white z-10 p-2 px-3 bottom-0">
-                    <CartSm toggle={toggleCart} />
-                    <CartLg toggle={toggleCart} />
-                </div>
+                <>
+                    {isOpen && (
+                        <div className="fixed overflow-y-scroll h-48 w-full bg-white z-30 p-2 bottom-14 px-3 md:px-20 ">
+                            <div className="flex items-center justify-between text-xl font-semibold">
+                                <h3>Your Orders</h3>
+                                <IoCloseSharp className="cursor-pointer" onClick={closeCart} />
+                            </div>
+                            <hr className="my-2" />
+
+                            <div className="flex flex-col gap-2">
+                                {reduxState.map((food) => (
+                                    <FoodItem key={food._id} {...food} />
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                    <div className="fixed w-full bg-white z-10 p-2 px-3 bottom-0">
+                        <CartSm toggle={toggleCart} />
+                        <CartLg toggle={toggleCart} />
+                    </div>
+                </>
             )}
         </>
     )
