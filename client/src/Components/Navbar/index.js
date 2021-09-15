@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { HiLocationMarker } from "react-icons/hi";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { RiSearch2Line } from "react-icons/ri";
@@ -10,9 +10,15 @@ import gravatar from "gravatar";
 import SignIn from '../Auth/SignIn';
 import SignUp from '../Auth/SignUp';
 
+// redux actions
+import { signOut } from '../../Redux/Reducers/Auth/auth.action';
+
 const MobileNav = ({ SignIn, SignUp }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dispatch = useDispatch();
     const reduxState = useSelector((global) => global.user.user);
+
+    const signOutHandler = () => dispatch(signOut());
 
     return (
         <>
@@ -42,7 +48,7 @@ const MobileNav = ({ SignIn, SignUp }) => {
                             </span>
                             {isDropdownOpen && (
                                 <div className="absolute shadow-lg py-3 z-10 w-full bg-white flex flex-col gap-2 -bottom-12 -right-4">
-                                    <button>Sign out</button>
+                                    <button onClick={signOutHandler}>Sign out</button>
                                 </div>
                             )}
                         </>
@@ -70,7 +76,10 @@ const MobileNav = ({ SignIn, SignUp }) => {
 
 const LargeNav = ({ SignIn, SignUp }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dispatch = useDispatch();
     const reduxState = useSelector((global) => global.user.user);
+
+    const signOutHandler = () => dispatch(signOut());
 
     return (
         <div className="container mx-auto px-20">
@@ -109,7 +118,7 @@ const LargeNav = ({ SignIn, SignUp }) => {
                         </div>
                         {isDropdownOpen && (
                             <div className="absolute shadow-lg py-3 z-10 w-full bg-white flex flex-col gap-2 p-2 right-8">
-                                <button>Sign out</button>
+                                <button onClick={signOutHandler}>Sign out</button>
                             </div>
                         )}
                     </div>

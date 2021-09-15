@@ -1,10 +1,10 @@
 import axios from "axios";
 
 // Redux actions
-import { getCurrUser } from "../User/user.action";
+import { clearUser, getCurrUser } from "../User/user.action";
 
 // Redux types
-import { GOOGLE_AUTH, SIGN_IN, SIGN_UP } from "./auth.type";
+import { GOOGLE_AUTH, SIGN_IN, SIGN_OUT, SIGN_UP } from "./auth.type";
 
 export const signIn = (userData) => async (dispatch) => {
     try {
@@ -31,6 +31,19 @@ export const googleAuth = (token) => async (dispatch) => {
         getCurrUser();
 
         return dispatch({ type: GOOGLE_AUTH, payload: {} });
+    } catch (error) {
+        return dispatch({ type: "ERROR", payload: error });
+    }
+};
+
+export const signOut = () => async (dispatch) => {
+    try {
+        localStorage.removeItem("zomatoUser");
+
+        clearUser();
+        window.location.href = "http://localhost:3000/delivery"
+
+        return dispatch({ type: SIGN_OUT, payload: {} });
     } catch (error) {
         return dispatch({ type: "ERROR", payload: error });
     }
