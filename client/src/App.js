@@ -1,5 +1,9 @@
 import { Route, Redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import axios from "axios";
+
+// redux actions
+import { getCurrUser } from "./Redux/Reducers/User/user.action";
 
 // HOC
 import HomeLayoutHOC from "./HOC/Home.HOC";
@@ -16,13 +20,22 @@ import Photos from "./Page/Restaurant/Photos";
 import Checkout from "./Page/Checkout";
 import RedirectRestaurant from "./Page/Restaurant/Redirect";
 import GoogleAuth from "./Page/GoogleAuth";
+import { useEffect } from "react";
 
 // axios global settings
 if (localStorage.zomatoUser) {
   const { token } = JSON.parse(localStorage.zomatoUser);
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 }
+
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.zomatoUser) {
+      dispatch(getCurrUser())
+    }
+  }, [dispatch])
   return (
     <>
       <Route path="/" exact>

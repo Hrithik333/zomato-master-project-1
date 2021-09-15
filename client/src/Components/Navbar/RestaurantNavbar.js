@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { FaUserAlt } from "react-icons/fa";
 import { HiLocationMarker } from "react-icons/hi";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { RiSearch2Line } from "react-icons/ri";
+import gravatar from "gravatar";
 
 // components
 import SignIn from '../Auth/SignIn';
@@ -11,6 +13,7 @@ import SignUp from '../Auth/SignUp';
 
 const MobileNav = ({ SignIn, SignUp }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const reduxState = useSelector((global) => global.user.user);
 
     return (
         <>
@@ -25,17 +28,39 @@ const MobileNav = ({ SignIn, SignUp }) => {
                 </div>
                 <div className="flex items-center gap-3">
                     <button className="bg-zomato-400 text-white py-1 px-3 rounded-full">Use App</button>
-                    <span
-                        onClick={() => setIsDropdownOpen((prev) => !prev)}
-                        className="border border-gray-300 p-2  text-zomato-400 rounded-full"
-                    >
-                        <FaUserAlt />
-                    </span>
-                    {isDropdownOpen && (
-                        <div className="absolute shadow-lg py-3 z-10 w-full bg-white flex flex-col gap-2 -bottom-20 -right-4">
-                            <button onClick={SignIn}>Sign In</button>
-                            <button onClick={SignUp}>Sign Up</button>
-                        </div>
+                    {reduxState?.user?.fullname ? (
+                        <>
+                            <span
+                                onClick={() => setIsDropdownOpen((prev) => !prev)}
+                                className="border border-gray-300   text-zomato-400 rounded-full w-10 h-10"
+                            >
+                                <img
+                                    src={gravatar.url(reduxState?.user?.email)}
+                                    alt={reduxState?.user?.email}
+                                    className="w-full h-full rounded-full object-cover"
+                                />
+                            </span>
+                            {isDropdownOpen && (
+                                <div className="absolute shadow-lg py-3 z-40 w-20 bg-white flex flex-col gap-2 top-16 right-4">
+                                    <button>Sign out</button>
+                                </div>
+                            )}
+                        </>
+                    ) : (
+                        <>
+                            <span
+                                onClick={() => setIsDropdownOpen((prev) => !prev)}
+                                className="border border-gray-300 p-2  text-zomato-400 rounded-full"
+                            >
+                                <FaUserAlt />
+                            </span>
+                            {isDropdownOpen && (
+                                <div className="absolute shadow-lg py-3 z-10 w-full bg-white flex flex-col gap-2 -bottom-20 -right-4">
+                                    <button onClick={SignIn}>Sign In</button>
+                                    <button onClick={SignUp}>Sign Up</button>
+                                </div>
+                            )}
+                        </>
                     )}
                 </div>
             </div>
@@ -44,6 +69,9 @@ const MobileNav = ({ SignIn, SignUp }) => {
 }
 
 const LargeNav = ({ SignIn, SignUp }) => {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const reduxState = useSelector((global) => global.user.user);
+
     return (
         <div className="container mx-auto px-20">
             <div className="w-full flex items-center py-4 gap-4 ">
@@ -67,20 +95,30 @@ const LargeNav = ({ SignIn, SignUp }) => {
                         <input type="search" placeholder="Search for restaurant, cuisine or a dish" className="focus:outline-none w-full" />
                     </div>
                 </div>
-                <div className="flex gap-4 lg:gap-8 lg:pl-20">
-                    <button
-                        onClick={SignIn}
-                        className="text-gray-500 text-xl hover:text-gray-800"
-                    >
-                        Login
-                    </button>
-                    <button
-                        className="text-gray-500 text-xl hover:text-gray-800"
-                        onClick={SignUp}
-                    >
-                        Signup
-                    </button>
-                </div>
+                {reduxState?.user?.fullname ? (
+                    <div className="w-40 relative">
+                        <div
+                            onClick={() => setIsDropdownOpen((prev) => !prev)}
+                            className="border border-gray-300   text-zomato-400 w-16 h-16 rounded-full"
+                        >
+                            <img
+                                src={gravatar.url(reduxState?.user?.email)}
+                                alt={reduxState?.user?.email}
+                                className="w-full h-full rounded-full object-cover"
+                            />
+                        </div>
+                        {isDropdownOpen && (
+                            <div className="absolute shadow-lg py-3 z-10 w-full bg-white flex flex-col gap-2 p-2 right-8">
+                                <button>Sign out</button>
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <div className="flex gap-4 lg:gap-8 lg:pl-20">
+                        <button onClick={SignIn} className="text-gray-500 text-xl hover:text-gray-800">Login</button>
+                        <button onClick={SignUp} className="text-gray-500 text-xl hover:text-gray-800">Signup</button>
+                    </div>
+                )}
             </div>
         </div>
     )
