@@ -6,6 +6,7 @@ import ReactStars from 'react-rating-stars-component'
 // Redux actions
 import { getFood } from '../../../Redux/Reducers/Food/food.action';
 import { getImage } from '../../../Redux/Reducers/Image/image.action';
+import { addCart } from "../../../Redux/Reducers/Cart/cart.action";
 
 const FoodItemCard = (props) => {
     const [food, setFood] = useState({});
@@ -23,6 +24,11 @@ const FoodItemCard = (props) => {
         });
     }, [dispatch, props._id]);
 
+    const addFoodToCart = () => {
+        dispatch(addCart({ ...food, quantity: 1, totalPrice: food.price }));
+        setFood((prev) => ({ ...prev, isAddedToCart: true }));
+    };
+
     return (
         <>
             {food?.name && (
@@ -39,7 +45,19 @@ const FoodItemCard = (props) => {
                     <div className="w-3/4 md:w-7/12 flex flex-col md:gap-1">
                         <div className="flex justify-between">
                             <h3 className="text-lg md:text-xl font-semibold">{food?.name}</h3>
-                            <button className="md:hidden flex items-center gap-2 text-zomato-400 bg-zomato-50 border border-zomato-400 px-2 py-1 md:px-4 md:py-2 rounded-lg"><AiOutlinePlus /> Add</button>
+                            <button
+                                onClick={addFoodToCart}
+                                disabled={food.isAddedToCart}
+                                className="md:hidden flex items-center gap-2 text-zomato-400 bg-zomato-50 border border-zomato-400 px-2 py-1 md:px-4 md:py-2 rounded-lg"
+                            >
+                                {food.isAddedToCart ? (
+                                    "Added"
+                                ) : (
+                                    <>
+                                        <AiOutlinePlus /> Add
+                                    </>
+                                )}
+                            </button>
                         </div>
                         <ReactStars
                             count={5}
@@ -52,7 +70,19 @@ const FoodItemCard = (props) => {
                         <p className="truncate">{food?.description}</p>
                     </div>
                     <div className="hidden md:block w-2/12">
-                        <button className="flex items-center gap-2 text-zomato-400 bg-zomato-50 border border-zomato-400 px-4 py-2 rounded-lg"><AiOutlinePlus /> Add</button>
+                        <button
+                            onClick={addFoodToCart}
+                            disabled={food.isAddedToCart}
+                            className="flex items-center gap-2 text-zomato-400 bg-zomato-50 border border-zomato-400 px-4 py-2 rounded-lg"
+                        >
+                            {food.isAddedToCart ? (
+                                "Added"
+                            ) : (
+                                <>
+                                    <AiOutlinePlus /> Add
+                                </>
+                            )}
+                        </button>
                     </div>
                 </div>
             )}

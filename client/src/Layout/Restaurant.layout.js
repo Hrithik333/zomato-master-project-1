@@ -16,6 +16,7 @@ import CartContainer from '../Components/Cart/CartContainer';
 // Redux actions
 import { getSpecificRestaurant } from '../Redux/Reducers/Restaurant/restaurant.action';
 import { getImage } from '../Redux/Reducers/Image/image.action';
+import { getCart } from '../Redux/Reducers/Cart/cart.action';
 
 const RestaurantLayout = (props) => {
     const [restaurant, setRestaurant] = useState({
@@ -40,7 +41,9 @@ const RestaurantLayout = (props) => {
             }
             );
         });
-    }, []);
+
+        dispatch(getCart());
+    }, [dispatch, id]);
 
     return (
         <>

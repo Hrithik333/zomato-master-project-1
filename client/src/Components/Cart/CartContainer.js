@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
 import { IoMdArrowDropright, IoMdArrowDropup } from 'react-icons/io';
-import { IoCloseSharp } from "react-icons/io5"
+import { IoCloseSharp } from "react-icons/io5";
+import { useSelector } from "react-redux";
+
+// components
 import FoodItem from './FoodItem';
 
 const CartSm = ({ toggle }) => {
+    const reduxState = useSelector((global) => global.cart.cart);
+
     return (
         <>
             <div className="md:hidden flex items-center justify-between">
                 <div className="flex flex-col items-start">
                     <small className="flex items-center gap-1" onClick={toggle}>
-                        1 Item <IoMdArrowDropup />
+                        {reduxState.length} Item <IoMdArrowDropup />
                     </small>
                     <h4>
-                        ₹300 (plus tax)
+                        ₹{reduxState.reduce((acc, curVal) => acc + curVal.totalPrice, 0)}
+                        (plus tax)
                     </h4>
                 </div>
                 <button className="flex items-center gap-1 bg-zomato-400 px-3 py-1 rounded-lg text-white" >
@@ -24,6 +30,8 @@ const CartSm = ({ toggle }) => {
 }
 
 const CartLg = ({ toggle }) => {
+    const reduxState = useSelector((global) => global.cart.cart);
+
     return (
         <>
             <div className="hidden md:flex items-center justify-between px-20 mx-auto">
@@ -32,12 +40,13 @@ const CartLg = ({ toggle }) => {
                         <IoMdArrowDropup />
                     </span>
                     <h4>
-                        Your orders (1)
+                        Your orders ({reduxState.length})
                     </h4>
                 </div>
                 <div className="flex items-center gap-2">
                     <h4 className="text-xl">
-                        Subtotal: ₹300
+                        Subtotal:₹{" "}
+                        {reduxState.reduce((acc, curVal) => acc + curVal.totalPrice, 0)}
                     </h4>
                     <button className="flex items-center gap-1 text-lg font-light h-10 bg-zomato-400 px-3 py-1 rounded-lg text-white" >
                         Continue <IoMdArrowDropright />
@@ -50,6 +59,9 @@ const CartLg = ({ toggle }) => {
 
 const CartContainer = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [cartData, setCartData] = useState([]);
+
+    const reduxState = useSelector((global) => global.cart.cart);
 
     const toggleCart = () => setIsOpen(prev => !prev)
     const closeCart = () => setIsOpen(false)
@@ -65,17 +77,22 @@ const CartContainer = () => {
                     <hr className="my-2" />
 
                     <div className="flex flex-col gap-2">
-                        <FoodItem name="Pizza" quantity="3" price="90" />
-                        <FoodItem name="Pizza" quantity="3" price="90" />
-                        <FoodItem name="Pizza" quantity="3" price="90" />
-                        <FoodItem name="Pizza" quantity="3" price="90" />
+                        {reduxState.map((food) => (
+                            <FoodItem
+                                name={food.name}
+                                quantity={food.quantity}
+                                price={food.price}
+                            />
+                        ))}
                     </div>
                 </div>
             )}
-            <div className="fixed w-full bg-white bottom-0 z-100 p-2 px-3">
-                <CartSm toggle={toggleCart} />
-                <CartLg toggle={toggleCart} />
-            </div>
+            {reduxState.length && (
+                <div className="fixed w-full bg-white z-10 p-2 px-3 bottom-0">
+                    <CartSm toggle={toggleCart} />
+                    <CartLg toggle={toggleCart} />
+                </div>
+            )}
         </>
     )
 }
