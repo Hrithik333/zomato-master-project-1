@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { IoMdArrowDropright, IoMdArrowDropup } from 'react-icons/io';
 import { IoCloseSharp } from "react-icons/io5";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 // components
 import FoodItem from './FoodItem';
 
 const CartSm = ({ toggle }) => {
     const reduxState = useSelector((global) => global.cart.cart);
+    const history = useHistory();
+
+    const continueToCheckout = () => history.push("/checkout/orders");
 
     return (
         <>
@@ -21,7 +25,10 @@ const CartSm = ({ toggle }) => {
                         (plus tax)
                     </h4>
                 </div>
-                <button className="flex items-center gap-1 bg-zomato-400 px-3 py-1 rounded-lg text-white" >
+                <button
+                    onClick={continueToCheckout}
+                    className="flex items-center gap-1 bg-zomato-400 px-3 py-1 rounded-lg text-white"
+                >
                     Continue <IoMdArrowDropright />
                 </button>
             </div>
@@ -31,6 +38,9 @@ const CartSm = ({ toggle }) => {
 
 const CartLg = ({ toggle }) => {
     const reduxState = useSelector((global) => global.cart.cart);
+    const history = useHistory();
+
+    const continueToCheckout = () => history.push("/checkout/orders");
 
     return (
         <>
@@ -48,7 +58,10 @@ const CartLg = ({ toggle }) => {
                         Subtotal:₹{" "}
                         {reduxState.reduce((acc, curVal) => acc + curVal.totalPrice, 0)}
                     </h4>
-                    <button className="flex items-center gap-1 text-lg font-light h-10 bg-zomato-400 px-3 py-1 rounded-lg text-white" >
+                    <button
+                        onClick={continueToCheckout}
+                        className="flex items-center gap-1 text-lg font-light h-10 bg-zomato-400 px-3 py-1 rounded-lg text-white"
+                    >
                         Continue <IoMdArrowDropright />
                     </button>
                 </div>

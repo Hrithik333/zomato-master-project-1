@@ -4,9 +4,6 @@ import passport from "passport";
 // Database Model
 import { OrderModel } from "../../database/allModels";
 
-// Validation
-import { ValidateUserId } from "../../validation/orders";
-
 const Router = express.Router();
 
 /*
@@ -40,11 +37,9 @@ Access          PUBLIC
 Parameters      _id
 Method          POST
 */
-Router.post("/new/:_id", async (req, res) => {
+Router.post("/new", passport.authenticate("jwt"), async (req, res) => {
     try {
-        await ValidateUserId(req.params);
-
-        const { _id } = req.params;
+        const { _id } = req.session.passport.user._doc;
         const { orderDetails } = req.body;
 
         const addNewOrder = await OrderModel.findOneAndUpdate(
