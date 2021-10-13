@@ -21,3 +21,16 @@ after_success:
   - docker push manalimm/zomato-shapeai-client
   - docker push manalimm/zomato-shapeai-server
   - docker push manalimm/zomato-shapeai-nginx
+
+deploy:
+  # deploy to AWS EBS
+  provider: elasticbeanstalk
+  region: ap-south-1
+  app: zomato-master-clone
+  env: Zomatomasterclone-env
+  bucket_name: elasticbeanstalk-ap-south-1-492976133058
+  bucket_path: zomatoshapeai
+  on:
+    branch: master
+  access_key_id: $AWS_KEY
+  secret_access_key: $AWS_SECRET
