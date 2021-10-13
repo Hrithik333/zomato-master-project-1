@@ -6,7 +6,7 @@ services:
 
 # Execute logic
 script:
-  - echo "Hello!"
+  - echo "Hello World!"
 
 after_success:
   # Build all the docker files
